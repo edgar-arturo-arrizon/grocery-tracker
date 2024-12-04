@@ -10,9 +10,7 @@ export default function App() {
     console.log(response)
   }
 
-  useEffect(() => {
-    test()
-  }, [])
+  test()
 
   return (
     <h1>

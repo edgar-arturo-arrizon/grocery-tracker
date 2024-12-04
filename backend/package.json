@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "server": "nodemon ./index.js"
+    "server": "nodemon ./index.js",
+    "db-init": "psql -U edgararrizon -d postgres -f ./database/schema.sql"
   },
   "keywords": [],
   "author": "",
