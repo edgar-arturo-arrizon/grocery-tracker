@@ -38,14 +38,26 @@ app.get('/api/stores', async (req, res) => {
   }
 });
 
+// GET a specific grocery store
+app.get('/api/stores?store_name', async (req, res) => {
+  try {
+    const store_name = req.query.store_name
+    console.log(store_name)
+
+    const {rows } = await pool.query('SELECT (store_name) FROM GroceryStores WHERE store_name VALUES ($1)', [store_name])
+  } catch (error) {
+
+  }
+})
+
 // POST a new grocery store
 app.post('/api/stores', async (req, res) => {
-  const { store_name, location } = req.body;
+  const { store_name } = req.body;
 
   try {
     const { rows } = await pool.query(
-      'INSERT INTO GroceryStores (store_name, location) VALUES ($1, $2) RETURNING *',
-      [store_name, location]
+      'INSERT INTO GroceryStores (store_name) VALUES ($1) RETURNING *',
+      [store_name]
     );
     res.status(201).json(rows[0]);
   } catch (error) {

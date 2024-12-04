@@ -10,14 +10,14 @@ DROP TABLE IF EXISTS GroceryStores;
 
 CREATE TABLE GroceryStores (
     store_id SERIAL PRIMARY KEY,
-    store_name VARCHAR(255) NOT NULL,
-    location VARCHAR(255)
+    store_name VARCHAR(255) NOT NULL
 );
 
 CREATE TABLE GroceryTrip (
     trip_id SERIAL PRIMARY KEY,
     store_id INT REFERENCES GroceryStores(store_id),
-    trip_date TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+    trip_date TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+    trip_total INT
 );
 
 CREATE TABLE GroceryTripItems (
