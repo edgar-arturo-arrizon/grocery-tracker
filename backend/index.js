@@ -50,22 +50,6 @@ app.get('/api/stores?store_name', async (req, res) => {
   }
 })
 
-// POST a new grocery store
-app.post('/api/stores', async (req, res) => {
-  const { store_name } = req.body;
-
-  try {
-    const { rows } = await pool.query(
-      'INSERT INTO GroceryStores (store_name) VALUES ($1) RETURNING *',
-      [store_name]
-    );
-    res.status(201).json(rows[0]);
-  } catch (error) {
-    console.error('Error adding a grocery store:', error);
-    res.status(500).json({ error: 'Failed to add a grocery store' });
-  }
-});
-
 // Add more routes for GroceryTrip and GroceryTripItems similarly...
 // GROCERY TRIPS
 app.get('/api/grocerytrips', async (req, res) => {
