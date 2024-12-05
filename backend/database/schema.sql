@@ -26,4 +26,6 @@ CREATE TABLE GroceryTripItems (
     item_name VARCHAR(255) NOT NULL,
     quantity INT,
     unit_cost DECIMAL (10, 2)
+    item_type VARCHAR(255),
+    item_weight DECIMAL (10, 2),
 );

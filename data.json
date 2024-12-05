@@ -1,0 +1,14 @@
+{
+  "trip_date": "11/11/2024",
+  "store_name": "Costco Business",
+  "trip_total": 413,
+  "items": [
+    { "item_name": "bell pepper", "type": "fruit", "weight": "5 lb", "quantity": 1, "unit_cost": 1.18 },
+    { "item_name": "cucumber", "type": "fruit", "quantity": 6, "unit_cost": 6.95 },
+    { "item_name": "kirkland signature sparkling water", "type": "beverage", "weight": "12 fl oz", "quantity": 35, "unit_cost": 13.67 },
+    { "item_name": "pork tenderloin", "type": "protein", "weight": "9 lb", "quantity": 1, "unit_cost": 36.81 },
+    { "item_name": "goat cheese", "type": "dairy", "weight": "10.5 oz", "quantity": 1, "unit_cost": 9.57 },
+    { "item_name": "sour dough bread", "type": "grain", "quantity": 2, "unit_cost": 8.71 },
+    { "item_name": "mini seedless watermelon", "type": "fruit", "quantity": 2, "unit_cost": 9.94 }
+  ]
+}
