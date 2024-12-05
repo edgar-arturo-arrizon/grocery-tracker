@@ -26,31 +26,27 @@ pool.query('SELECT NOW()', (err, result) => {
   }
 });
 
-// GET all grocery stores
+// GET grocery stores
 app.get('/api/stores', async (req, res) => {
+  const store_name = req.query.store_name
+
   try {
-    const { rows } = await pool.query('SELECT * FROM GroceryStores');
+    let query = 'SELECT * FROM GroceryStores';
+    const queryParams = [];
+
+    if (store_name) {
+      query += ' WHERE store_name = $1';
+      queryParams.push(store_name);
+    }
+
+    const {rows } = await pool.query(query, queryParams)
     res.json(rows);
-  } catch (error) {
-    console.error('Error fetching grocery stores:', error);
-    res.status(500).json({ error: 'Failed to fetch grocery stores' });
-  }
-});
-
-// GET a specific grocery store
-app.get('/api/stores?store_name', async (req, res) => {
-  try {
-    const store_name = req.query.store_name
-    console.log(store_name)
-
-    const {rows } = await pool.query('SELECT (store_name) FROM GroceryStores WHERE store_name VALUES ($1)', [store_name])
   } catch (error) {
     console.error('Error fetching grocery stores:', error);
     res.status(500).json({ error: 'Failed to fetch grocery stores' });
   }
 })
 
-// Add more routes for GroceryTrip and GroceryTripItems similarly...
 // GROCERY TRIPS
 app.get('/api/grocerytrips', async (req, res) => {
   const startDate = req.query.start_date;
