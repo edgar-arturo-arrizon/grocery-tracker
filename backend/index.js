@@ -124,10 +124,44 @@ app.post('/api/grocerytrips', async (req, res) => {
 });
 
 // GET all grocery items
-app.get('/api/groceryitems', async (req, res) => {
-  
-})
-// GET a filtered list of grocery item
+app.get('/api/grocerytripitems', async (req, res) => {
+  const itemName = req.query.item_name;
+  const startDate = req.query.start_date;
+  const endDate = req.query.end_date;
+
+  try {
+    let query = `
+      SELECT gti.*, gt.trip_date
+      FROM GroceryTripItems gti
+      JOIN GroceryTrip gt ON gti.trip_id = gt.trip_id
+    `;
+    const queryParams = [];
+
+    // Filter by item name
+    if (itemName) {
+      query += ' WHERE gti.item_name = $1';
+      queryParams.push(itemName);
+    }
+
+    // Filter by date range
+    if (startDate && endDate) {
+      query += queryParams.length ? ' AND gt.trip_date BETWEEN $2 AND $3' : ' WHERE gt.trip_date BETWEEN $2 AND $3';
+      queryParams.push(startDate, endDate);
+    } else if (startDate) {
+      query += queryParams.length ? ' AND gt.trip_date >= $2' : ' WHERE gt.trip_date >= $2';
+      queryParams.push(startDate);
+    } else if (endDate) {
+      query += queryParams.length ? ' AND gt.trip_date <= $2' : ' WHERE gt.trip_date <= $2';
+      queryParams.push(endDate);
+    }
+
+    const { rows } = await pool.query(query, queryParams);
+    res.json(rows);
+  } catch (error) {
+    console.error('Error fetching grocery trip items:', error);
+    res.status(500).json({ error: 'Failed to fetch grocery trip items' });
+  }
+});
 
 app.listen(port, () => {
   console.log(`Server listening on port ${port}`);
